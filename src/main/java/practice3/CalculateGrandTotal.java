@@ -12,16 +12,16 @@ public class CalculateGrandTotal {
 
     public BigDecimal compute() {
         BigDecimal subTotal = calculateSubTotal();
+
         BigDecimal discountedTotal = calculateDiscountedTotal(subTotal);
 
+        return calculateTaxPaidTotal(discountedTotal);
+    }
 
-        // calculate tax
+    private BigDecimal calculateTaxPaidTotal(BigDecimal discountedTotal) {
         BigDecimal tax = discountedTotal.multiply(this.order.getTax());
 
-        // calculate GrandTotal
-        BigDecimal grandTotal = subTotal.add(tax);
-
-        return grandTotal;
+        return discountedTotal.add(tax);
     }
 
     private BigDecimal calculateDiscountedTotal(BigDecimal subTotal) {
