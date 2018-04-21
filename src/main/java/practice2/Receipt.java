@@ -25,14 +25,16 @@ public class Receipt {
     }
 
     private BigDecimal getDiscountedTotal(List<Product> products, List<OrderItem> items, BigDecimal subTotal) {
+        BigDecimal discountedTotal = subTotal;
+
         for (Product product : products) {
             OrderItem curItem = findOrderItemByProduct(items, product);
 
             BigDecimal reducedPrice = reducePriceByDiscount(product, curItem);
 
-            subTotal = subTotal.subtract(reducedPrice);
+            discountedTotal = discountedTotal.subtract(reducedPrice);
         }
-        return subTotal;
+        return discountedTotal;
     }
 
     private BigDecimal reducePriceByDiscount(Product product, OrderItem curItem) {
