@@ -69,9 +69,13 @@ public class Receipt {
         BigDecimal subTotal = new BigDecimal(0);
         for (Product product : products) {
             OrderItem item = findOrderItemByProduct(items, product);
-            BigDecimal itemTotal = product.getPrice().multiply(new BigDecimal(item.getCount()));
+            BigDecimal itemTotal = calculateItemTotal(product, item);
             subTotal = subTotal.add(itemTotal);
         }
         return subTotal;
+    }
+
+    private BigDecimal calculateItemTotal(Product product, OrderItem item) {
+        return product.getPrice().multiply(new BigDecimal(item.getCount()));
     }
 }
