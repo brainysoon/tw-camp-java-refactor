@@ -27,7 +27,12 @@ public class Receipt {
 
         BigDecimal grandTotal = addTaxFrom(subTotal);
 
-        return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return getFormattedGrandTotal(grandTotal);
+    }
+
+    private double getFormattedGrandTotal(BigDecimal grandTotal) {
+        return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP)
+                .doubleValue();
     }
 
     private BigDecimal addTaxFrom(BigDecimal total) {
