@@ -29,10 +29,6 @@ public class Security {
             return true;
         }
 
-        if (this.securityChecker.checkPermission(user, permission) || permissions.contains(permission)) {
-            isAccess = true;
-        }
-
-        return isAccess;
+        return this.securityChecker.checkPermission(user, permission) || permissions.contains(permission);
     }
 }
