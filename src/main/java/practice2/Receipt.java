@@ -20,9 +20,7 @@ public class Receipt {
         for (Product product : products) {
             OrderItem curItem = findOrderItemByProduct(items, product);
 
-            BigDecimal reducedPrice = product.getPrice()
-                    .multiply(product.getDiscountRate())
-                    .multiply(new BigDecimal(curItem.getCount()));
+            BigDecimal reducedPrice = reducePriceByDiscount(product, curItem);
 
             subTotal = subTotal.subtract(reducedPrice);
         }
@@ -30,6 +28,12 @@ public class Receipt {
         BigDecimal grandTotal = addTaxFrom(subTotal);
 
         return getFormattedGrandTotal(grandTotal);
+    }
+
+    private BigDecimal reducePriceByDiscount(Product product, OrderItem curItem) {
+        return product.getPrice()
+                .multiply(product.getDiscountRate())
+                .multiply(new BigDecimal(curItem.getCount()));
     }
 
     private double getFormattedGrandTotal(BigDecimal grandTotal) {
