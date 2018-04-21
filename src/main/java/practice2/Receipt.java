@@ -24,10 +24,15 @@ public class Receipt {
 
             subTotal = subTotal.subtract(reducedPrice);
         }
-        BigDecimal taxTotal = subTotal.multiply(tax);
-        BigDecimal grandTotal = subTotal.add(taxTotal);
+
+        BigDecimal grandTotal = addTaxFrom(subTotal);
 
         return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    private BigDecimal addTaxFrom(BigDecimal total) {
+        BigDecimal taxTotal = total.multiply(tax);
+        return total.add(taxTotal);
     }
 
 
