@@ -5,9 +5,11 @@ import java.util.List;
 
 public class Receipt {
 
+    private static final int SCALE_TWO = 2;
+
     public Receipt() {
         tax = new BigDecimal(0.1);
-        tax = tax.setScale(2, BigDecimal.ROUND_HALF_UP);
+        tax = tax.setScale(SCALE_TWO, BigDecimal.ROUND_HALF_UP);
     }
 
     private BigDecimal tax;
@@ -31,7 +33,7 @@ public class Receipt {
     }
 
     private double getFormattedGrandTotal(BigDecimal grandTotal) {
-        return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP)
+        return grandTotal.setScale(SCALE_TWO, BigDecimal.ROUND_HALF_UP)
                 .doubleValue();
     }
 
