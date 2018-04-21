@@ -12,19 +12,24 @@ public class CalculateGrandTotal {
 
     public BigDecimal compute() {
         BigDecimal subTotal = calculateSubTotal();
+        BigDecimal discountedTotal = calculateDiscountedTotal(subTotal);
 
-        // Subtract discounts
-        for (BigDecimal discount : this.order.getDiscounts()) {
-            subTotal = subTotal.subtract(discount);
-        }
 
         // calculate tax
-        BigDecimal tax = subTotal.multiply(this.order.getTax());
+        BigDecimal tax = discountedTotal.multiply(this.order.getTax());
 
         // calculate GrandTotal
         BigDecimal grandTotal = subTotal.add(tax);
 
         return grandTotal;
+    }
+
+    private BigDecimal calculateDiscountedTotal(BigDecimal subTotal) {
+        BigDecimal discountedTotal = subTotal;
+        for (BigDecimal discount : this.order.getDiscounts()) {
+            discountedTotal = discountedTotal.subtract(discount);
+        }
+        return discountedTotal;
     }
 
     private BigDecimal calculateSubTotal() {
