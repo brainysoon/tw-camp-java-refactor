@@ -11,12 +11,7 @@ public class CalculateGrandTotal {
     }
 
     public BigDecimal compute() {
-        BigDecimal subTotal = new BigDecimal(0);
-
-        // Total up line items
-        for (OrderLineItem lineItem : this.order.getOrderLineItemList()) {
-            subTotal = subTotal.add(lineItem.getPrice());
-        }
+        BigDecimal subTotal = calculateSubTotal();
 
         // Subtract discounts
         for (BigDecimal discount : this.order.getDiscounts()) {
@@ -30,5 +25,15 @@ public class CalculateGrandTotal {
         BigDecimal grandTotal = subTotal.add(tax);
 
         return grandTotal;
+    }
+
+    private BigDecimal calculateSubTotal() {
+        BigDecimal subTotal = new BigDecimal(0);
+
+        for (OrderLineItem lineItem : this.order.getOrderLineItemList()) {
+            subTotal = subTotal.add(lineItem.getPrice());
+        }
+
+        return subTotal;
     }
 }
